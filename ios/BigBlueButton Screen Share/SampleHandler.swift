@@ -9,6 +9,8 @@ import ReplayKit
 
 class SampleHandler: RPBroadcastSampleHandler {
 
+    var videoSampleCount: Int = 0
+  
     override func broadcastStarted(withSetupInfo setupInfo: [String : NSObject]?) {
         // User has requested to start the broadcast. Setup info from the UI extension can be supplied but optional.
       print("Broadcast started")
@@ -33,6 +35,9 @@ class SampleHandler: RPBroadcastSampleHandler {
         switch sampleBufferType {
         case RPSampleBufferType.video:
             print("Video sample")
+            videoSampleCount+=1
+            let videoSampleCountData = withUnsafeBytes(of: videoSampleCount) { Data($0) }
+            IPCCurrentVideoFrame.shared.set(videoSampleCountData)
             // Handle video sample buffer
             break
         case RPSampleBufferType.audioApp:
@@ -49,3 +54,4 @@ class SampleHandler: RPBroadcastSampleHandler {
         }
     }
 }
+

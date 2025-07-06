@@ -92,6 +92,13 @@
 			);
 			target = F11BF2AE2DDFA51F00CAE24E /* BigBlueButton Screen ShareSetupUI */;
 		};
+		F144FB6F2E1AB28D007FF0E1 /* Exceptions for "InterProcess" folder in "BigBlueButton Screen Share" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				IPCFileManager.swift,
+			);
+			target = F11BF2A32DDFA51F00CAE24E /* BigBlueButton Screen Share */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -109,6 +116,19 @@
 				F11BF2C12DDFA51F00CAE24E /* Exceptions for "BigBlueButton Screen ShareSetupUI" folder in "BigBlueButton Screen ShareSetupUI" target */,
 			);
 			path = "BigBlueButton Screen ShareSetupUI";
+			sourceTree = "<group>";
+		};
+		F144FB682E1AAEF6007FF0E1 /* InterProcess */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				F144FB6F2E1AB28D007FF0E1 /* Exceptions for "InterProcess" folder in "BigBlueButton Screen Share" target */,
+			);
+			path = InterProcess;
+			sourceTree = "<group>";
+		};
+		F144FB702E1AB3E4007FF0E1 /* ScreenSharePublisher */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ScreenSharePublisher;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -145,6 +165,8 @@
 		13B07FAE1A68108700A75B9A /* bigbluebuttontablet */ = {
 			isa = PBXGroup;
 			children = (
+				F144FB702E1AB3E4007FF0E1 /* ScreenSharePublisher */,
+				F144FB682E1AAEF6007FF0E1 /* InterProcess */,
 				F151C52E2E1A92560035DB2E /* Broadcast */,
 				F11748412D0307B40044C1D9 /* AppDelegate.swift */,
 				F11748442D0722820044C1D9 /* bigbluebuttontablet-Bridging-Header.h */,
@@ -267,6 +289,10 @@
 			dependencies = (
 				F11BF2B82DDFA51F00CAE24E /* PBXTargetDependency */,
 				F11BF2BB2DDFA51F00CAE24E /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				F144FB682E1AAEF6007FF0E1 /* InterProcess */,
+				F144FB702E1AB3E4007FF0E1 /* ScreenSharePublisher */,
 			);
 			name = bigbluebuttontablet;
 			productName = bigbluebuttontablet;
@@ -643,10 +669,7 @@
 				LIBRARY_SEARCH_PATHS = "$(SDKROOT)/usr/lib/swift\"$(inherited)\"";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
@@ -701,10 +724,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(SDKROOT)/usr/lib/swift\"$(inherited)\"";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
@@ -723,6 +743,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = "BigBlueButton Screen Share/BigBlueButton Screen Share.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -766,6 +787,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = "BigBlueButton Screen Share/BigBlueButton Screen Share.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;

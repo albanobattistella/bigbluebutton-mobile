@@ -28,6 +28,7 @@ public class AppDelegate: ExpoAppDelegate {
       in: window,
       launchOptions: launchOptions)
 #endif
+    ScreenSharePublisher.start()
 
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }

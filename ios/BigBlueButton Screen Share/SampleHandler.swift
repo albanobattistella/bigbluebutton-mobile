@@ -32,12 +32,15 @@ class SampleHandler: RPBroadcastSampleHandler {
     override func processSampleBuffer(_ sampleBuffer: CMSampleBuffer, with sampleBufferType: RPSampleBufferType) {
         switch sampleBufferType {
         case RPSampleBufferType.video:
+            print("Video sample")
             // Handle video sample buffer
             break
         case RPSampleBufferType.audioApp:
+            print("App audio sample")
             // Handle audio sample buffer for app audio
             break
         case RPSampleBufferType.audioMic:
+          print("Miv audio sample")
             // Handle audio sample buffer for mic audio
             break
         @unknown default:

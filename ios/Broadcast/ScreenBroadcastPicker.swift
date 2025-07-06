@@ -25,7 +25,7 @@ class ScreenBroadcastPicker: NSObject	 {
     DispatchQueue.main.async {
       if self.pickerView == nil {
         let picker = RPSystemBroadcastPickerView(frame: CGRect(x: -1000, y: -1000, width: 50, height: 50))
-        picker.preferredExtension = "com.bigbluebuttontablet.ShareSetupUI"  // <- match your extension’s bundle ID
+        picker.preferredExtension = "org.bigbluebutton.tablet.BigBlueButton-Screen-Share"
         picker.showsMicrophoneButton = false
 
         if let keyWindow = UIApplication.shared

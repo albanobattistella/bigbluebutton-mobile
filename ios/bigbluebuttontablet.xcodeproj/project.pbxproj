@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 77;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -19,6 +19,8 @@
 		F11BF2B22DDFA51F00CAE24E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F11BF2B12DDFA51F00CAE24E /* UIKit.framework */; };
 		F11BF2B92DDFA51F00CAE24E /* BigBlueButton Screen ShareSetupUI.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = F11BF2AF2DDFA51F00CAE24E /* BigBlueButton Screen ShareSetupUI.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		F11BF2BC2DDFA51F00CAE24E /* BigBlueButton Screen Share.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = F11BF2A42DDFA51F00CAE24E /* BigBlueButton Screen Share.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		F144FB5F2E1A99F4007FF0E1 /* ScreenBroadcastPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = F144FB5E2E1A99F0007FF0E1 /* ScreenBroadcastPicker.m */; };
+		F151C5302E1A92560035DB2E /* ScreenBroadcastPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F151C52D2E1A92560035DB2E /* ScreenBroadcastPicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,17 +73,19 @@
 		F11BF2A52DDFA51F00CAE24E /* ReplayKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReplayKit.framework; path = System/Library/Frameworks/ReplayKit.framework; sourceTree = SDKROOT; };
 		F11BF2AF2DDFA51F00CAE24E /* BigBlueButton Screen ShareSetupUI.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "BigBlueButton Screen ShareSetupUI.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F11BF2B12DDFA51F00CAE24E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		F144FB5E2E1A99F0007FF0E1 /* ScreenBroadcastPicker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScreenBroadcastPicker.m; sourceTree = "<group>"; };
+		F151C52D2E1A92560035DB2E /* ScreenBroadcastPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenBroadcastPicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		F11BF2BD2DDFA51F00CAE24E /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		F11BF2BD2DDFA51F00CAE24E /* Exceptions for "BigBlueButton Screen Share" folder in "BigBlueButton Screen Share" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
 			target = F11BF2A32DDFA51F00CAE24E /* BigBlueButton Screen Share */;
 		};
-		F11BF2C12DDFA51F00CAE24E /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		F11BF2C12DDFA51F00CAE24E /* Exceptions for "BigBlueButton Screen ShareSetupUI" folder in "BigBlueButton Screen ShareSetupUI" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -91,8 +95,22 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		F11BF2A72DDFA51F00CAE24E /* BigBlueButton Screen Share */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (F11BF2BD2DDFA51F00CAE24E /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "BigBlueButton Screen Share"; sourceTree = "<group>"; };
-		F11BF2B32DDFA51F00CAE24E /* BigBlueButton Screen ShareSetupUI */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (F11BF2C12DDFA51F00CAE24E /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "BigBlueButton Screen ShareSetupUI"; sourceTree = "<group>"; };
+		F11BF2A72DDFA51F00CAE24E /* BigBlueButton Screen Share */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				F11BF2BD2DDFA51F00CAE24E /* Exceptions for "BigBlueButton Screen Share" folder in "BigBlueButton Screen Share" target */,
+			);
+			path = "BigBlueButton Screen Share";
+			sourceTree = "<group>";
+		};
+		F11BF2B32DDFA51F00CAE24E /* BigBlueButton Screen ShareSetupUI */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				F11BF2C12DDFA51F00CAE24E /* Exceptions for "BigBlueButton Screen ShareSetupUI" folder in "BigBlueButton Screen ShareSetupUI" target */,
+			);
+			path = "BigBlueButton Screen ShareSetupUI";
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +145,7 @@
 		13B07FAE1A68108700A75B9A /* bigbluebuttontablet */ = {
 			isa = PBXGroup;
 			children = (
+				F151C52E2E1A92560035DB2E /* Broadcast */,
 				F11748412D0307B40044C1D9 /* AppDelegate.swift */,
 				F11748442D0722820044C1D9 /* bigbluebuttontablet-Bridging-Header.h */,
 				BB2F792B24A3F905000567C9 /* Supporting */,
@@ -217,6 +236,15 @@
 			path = bigbluebuttontablet/Supporting;
 			sourceTree = "<group>";
 		};
+		F151C52E2E1A92560035DB2E /* Broadcast */ = {
+			isa = PBXGroup;
+			children = (
+				F144FB5E2E1A99F0007FF0E1 /* ScreenBroadcastPicker.m */,
+				F151C52D2E1A92560035DB2E /* ScreenBroadcastPicker.swift */,
+			);
+			path = Broadcast;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -261,8 +289,6 @@
 				F11BF2A72DDFA51F00CAE24E /* BigBlueButton Screen Share */,
 			);
 			name = "BigBlueButton Screen Share";
-			packageProductDependencies = (
-			);
 			productName = "BigBlueButton Screen Share";
 			productReference = F11BF2A42DDFA51F00CAE24E /* BigBlueButton Screen Share.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -283,8 +309,6 @@
 				F11BF2B32DDFA51F00CAE24E /* BigBlueButton Screen ShareSetupUI */,
 			);
 			name = "BigBlueButton Screen ShareSetupUI";
-			packageProductDependencies = (
-			);
 			productName = "BigBlueButton Screen ShareSetupUI";
 			productReference = F11BF2AF2DDFA51F00CAE24E /* BigBlueButton Screen ShareSetupUI.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -310,7 +334,6 @@
 				};
 			};
 			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "bigbluebuttontablet" */;
-			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -318,6 +341,7 @@
 				Base,
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
+			preferredProjectObjectVersion = 77;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -400,31 +424,12 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-bigbluebuttontablet/Pods-bigbluebuttontablet-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/EXConstants/EXConstants.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/EXConstants/ExpoConstants_privacy.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/ExpoFileSystem/ExpoFileSystem_privacy.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/ExpoSystemUI/ExpoSystemUI_privacy.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/RCT-Folly/RCT-Folly_privacy.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/React-Core_privacy.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/React-cxxreact/React-cxxreact_privacy.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/SDWebImage/SDWebImage.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/boost/boost_privacy.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/glog/glog_privacy.bundle",
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-bigbluebuttontablet/Pods-bigbluebuttontablet-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EXConstants.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ExpoConstants_privacy.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ExpoFileSystem_privacy.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ExpoSystemUI_privacy.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RCT-Folly_privacy.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/React-Core_privacy.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/React-cxxreact_privacy.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SDWebImage.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/boost_privacy.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/glog_privacy.bundle",
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-bigbluebuttontablet/Pods-bigbluebuttontablet-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -436,13 +441,12 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-bigbluebuttontablet/Pods-bigbluebuttontablet-frameworks.sh",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes-engine/Pre-built/hermes.framework/hermes",
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-bigbluebuttontablet/Pods-bigbluebuttontablet-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermes.framework",
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-bigbluebuttontablet/Pods-bigbluebuttontablet-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -476,7 +480,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				F11748422D0307B40044C1D9 /* AppDelegate.swift in Sources */,
+				F151C5302E1A92560035DB2E /* ScreenBroadcastPicker.swift in Sources */,
 				186BB5E4E873DCBB7BEB7ABA /* ExpoModulesProvider.swift in Sources */,
+				F144FB5F2E1A99F4007FF0E1 /* ScreenBroadcastPicker.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -731,6 +737,7 @@
 				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.bigbluebutton.tablet.BigBlueButton-Screen-Share";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -773,6 +780,7 @@
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.bigbluebutton.tablet.BigBlueButton-Screen-Share";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -814,6 +822,7 @@
 				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.bigbluebutton.tablet.BigBlueButton-Screen-ShareSetupUI";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -856,6 +865,7 @@
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.bigbluebutton.tablet.BigBlueButton-Screen-ShareSetupUI";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

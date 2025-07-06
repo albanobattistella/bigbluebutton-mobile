@@ -1,8 +1,16 @@
-# Welcome to your Expo app 👋
+# Welcome to BigBlueButton Tablet app 👋
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+BigBlueButton normally runs in a web browser. However, on iOS, browser-based screen sharing is not supported due to system limitations. This app solves that by embedding BigBlueButton in a native webview, allowing you to **share your screen on iOS devices**—something not possible with Safari or other browsers.
 
-## Get started
+In addition to screen sharing, the app also provides **improved background audio support**, enhancing the overall meeting experience.
+
+> **Note:** Although the app works on mobile phones, it is primarily optimized for tablets. Because it uses a webview to render the BigBlueButton interface, a device with a **strong CPU** is recommended for best performance.
+
+## Use the app
+
+The app is available on Apple App Store.
+
+## Run from source
 
 1. Install dependencies
 

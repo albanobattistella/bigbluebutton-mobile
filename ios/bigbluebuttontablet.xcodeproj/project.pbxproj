@@ -92,10 +92,17 @@
 			);
 			target = F11BF2AE2DDFA51F00CAE24E /* BigBlueButton Screen ShareSetupUI */;
 		};
-		F144FB6F2E1AB28D007FF0E1 /* Exceptions for "InterProcess" folder in "BigBlueButton Screen Share" target */ = {
+		F144FB6F2E1AB28D007FF0E1 /* Exceptions for "InterProcessCommunication" folder in "BigBlueButton Screen Share" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				IPCFileManager.swift,
+			);
+			target = F11BF2A32DDFA51F00CAE24E /* BigBlueButton Screen Share */;
+		};
+		F144FB7B2E1B39D6007FF0E1 /* Exceptions for "ScreenSharing" folder in "BigBlueButton Screen Share" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				PixelBufferSerialization.swift,
 			);
 			target = F11BF2A32DDFA51F00CAE24E /* BigBlueButton Screen Share */;
 		};
@@ -118,17 +125,20 @@
 			path = "BigBlueButton Screen ShareSetupUI";
 			sourceTree = "<group>";
 		};
-		F144FB682E1AAEF6007FF0E1 /* InterProcess */ = {
+		F144FB682E1AAEF6007FF0E1 /* InterProcessCommunication */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				F144FB6F2E1AB28D007FF0E1 /* Exceptions for "InterProcess" folder in "BigBlueButton Screen Share" target */,
+				F144FB6F2E1AB28D007FF0E1 /* Exceptions for "InterProcessCommunication" folder in "BigBlueButton Screen Share" target */,
 			);
-			path = InterProcess;
+			path = InterProcessCommunication;
 			sourceTree = "<group>";
 		};
-		F144FB702E1AB3E4007FF0E1 /* ScreenSharePublisher */ = {
+		F144FB702E1AB3E4007FF0E1 /* ScreenSharing */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = ScreenSharePublisher;
+			exceptions = (
+				F144FB7B2E1B39D6007FF0E1 /* Exceptions for "ScreenSharing" folder in "BigBlueButton Screen Share" target */,
+			);
+			path = ScreenSharing;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -165,8 +175,8 @@
 		13B07FAE1A68108700A75B9A /* bigbluebuttontablet */ = {
 			isa = PBXGroup;
 			children = (
-				F144FB702E1AB3E4007FF0E1 /* ScreenSharePublisher */,
-				F144FB682E1AAEF6007FF0E1 /* InterProcess */,
+				F144FB702E1AB3E4007FF0E1 /* ScreenSharing */,
+				F144FB682E1AAEF6007FF0E1 /* InterProcessCommunication */,
 				F151C52E2E1A92560035DB2E /* Broadcast */,
 				F11748412D0307B40044C1D9 /* AppDelegate.swift */,
 				F11748442D0722820044C1D9 /* bigbluebuttontablet-Bridging-Header.h */,
@@ -291,8 +301,8 @@
 				F11BF2BB2DDFA51F00CAE24E /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				F144FB682E1AAEF6007FF0E1 /* InterProcess */,
-				F144FB702E1AB3E4007FF0E1 /* ScreenSharePublisher */,
+				F144FB682E1AAEF6007FF0E1 /* InterProcessCommunication */,
+				F144FB702E1AB3E4007FF0E1 /* ScreenSharing */,
 			);
 			name = bigbluebuttontablet;
 			productName = bigbluebuttontablet;

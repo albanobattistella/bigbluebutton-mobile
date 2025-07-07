@@ -8,50 +8,67 @@
 import ReplayKit
 
 class SampleHandler: RPBroadcastSampleHandler {
-
-    var videoSampleCount: Int = 0
-  
-    override func broadcastStarted(withSetupInfo setupInfo: [String : NSObject]?) {
-        // User has requested to start the broadcast. Setup info from the UI extension can be supplied but optional.
-      print("Broadcast started")
+    
+    override func broadcastStarted(withSetupInfo setupInfo: [String: NSObject]?) {
+        // User has requested to start the broadcast.
+        // Setup info from the UI extension can be supplied but is optional.
+        print("Broadcast started")
     }
     
     override func broadcastPaused() {
-        // User has requested to pause the broadcast. Samples will stop being delivered.
-      print("Broadcast paused")
+        // User has requested to pause the broadcast.
+        // Samples will stop being delivered.
+        print("Broadcast paused")
     }
     
     override func broadcastResumed() {
-        // User has requested to resume the broadcast. Samples delivery will resume.
-      print("Broadcast resumed")
+        // User has requested to resume the broadcast.
+        // Sample delivery will resume.
+        print("Broadcast resumed")
     }
     
     override func broadcastFinished() {
         // User has requested to finish the broadcast.
-      print("Broadcast finished")
+        print("Broadcast finished")
     }
     
     override func processSampleBuffer(_ sampleBuffer: CMSampleBuffer, with sampleBufferType: RPSampleBufferType) {
         switch sampleBufferType {
-        case RPSampleBufferType.video:
-            print("Video sample")
-            videoSampleCount+=1
-            let videoSampleCountData = withUnsafeBytes(of: videoSampleCount) { Data($0) }
-            IPCCurrentVideoFrame.shared.set(videoSampleCountData)
-            // Handle video sample buffer
-            break
-        case RPSampleBufferType.audioApp:
+        case .video:
+            print("Video sample - begin")
+            
+            guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
+                print("Video sample - skip 1")
+                return
+            }
+            
+            var orientation = CGImagePropertyOrientation.up
+            if let o = CMGetAttachment(
+                sampleBuffer,
+                key: RPVideoSampleOrientationKey as CFString,
+                attachmentModeOut: nil
+            ) as? NSNumber {
+                orientation = CGImagePropertyOrientation(rawValue: o.uint32Value) ?? .up
+            }
+            
+            guard let data = serializePixelBufferFull(pixelBuffer, orientation: orientation) else {
+                print("Video sample - skip 2")
+                return
+            }
+            
+            IPCCurrentVideoFrame.shared.set(data)
+            print("Video sample - end")
+            
+        case .audioApp:
             print("App audio sample")
             // Handle audio sample buffer for app audio
-            break
-        case RPSampleBufferType.audioMic:
-          print("Miv audio sample")
+            
+        case .audioMic:
+            print("Mic audio sample")
             // Handle audio sample buffer for mic audio
-            break
+            
         @unknown default:
-            // Handle other sample buffer types
             fatalError("Unknown type of sample buffer")
         }
     }
 }
-

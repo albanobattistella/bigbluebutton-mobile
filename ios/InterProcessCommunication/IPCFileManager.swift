@@ -92,6 +92,23 @@ public final class IPCFileManager {
         munmap(mem, size)
         close(fd)
     }
+  
+    /// Clears the entire file by filling it with zeroes.
+    /// - Parameters:
+    ///   - path: Absolute path of the file to clear.
+    ///   - size: Expected size of the file (bytes).
+    /// - Returns: `false` on parameter or POSIX failure; `true` on success.
+    @discardableResult
+    public func clear(path: String, size: Int) -> Bool {
+        guard let (fd, _, mem) = mapFile(path: path, size: size),
+              let mem = mem else { return false }
+
+        memset(mem, 0, size)               // Fast zero-fill
+        msync(mem, size, MS_SYNC)          // Flush to disk
+        unmapFile(fd: fd, mem: mem, size: size)
+        return true
+    }
+
 }
 
 // MARK: - High-level, user-facing wrapper ------------------------------------
@@ -129,12 +146,22 @@ public final class IPCCurrentVideoFrame {
     }
 
     /// Reads a specified number of bytes starting from the given `offset`.
-    public func get(count: Int, from offset: Int = 0) -> Data? {
+    public func get(count: Int = 0, from offset: Int = 0) -> Data? {
         print("TODO - Trocar o retorno desse metodo get por algo mais pronto para uso, como o pixel buffer")
       
         return IPCFileManager.shared.read(from: Self.filePath,
                                    size: Self.fileSize,
-                                   count: count,
+                                   count: count == 0 ? Self.fileSize : count,
                                    offset: offset)
     }
+  
+    /// Zeroes-out the shared memory file so readers see an “empty” frame.
+    @discardableResult
+    public func clear() -> Bool {
+        return IPCFileManager.shared.clear(
+            path: Self.filePath,
+            size: Self.fileSize
+        )
+    }
+
 }

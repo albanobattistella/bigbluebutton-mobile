@@ -137,8 +137,6 @@ public final class IPCCurrentVideoFrame {
     /// Writes a full video frame (or a segment) to the shared file at the specified `offset`.
     @discardableResult
     public func set(_ data: Data, at offset: Int = 0) -> Bool {
-         print("TODO - Trocar a entrada desse metodo set por algo mais amigavel ao consumidor de current frame, como o pixel buffer")
-      
         return IPCFileManager.shared.write(data,
                                     to: Self.filePath,
                                     size: Self.fileSize,
@@ -147,8 +145,6 @@ public final class IPCCurrentVideoFrame {
 
     /// Reads a specified number of bytes starting from the given `offset`.
     public func get(count: Int = 0, from offset: Int = 0) -> Data? {
-        print("TODO - Trocar o retorno desse metodo get por algo mais pronto para uso, como o pixel buffer")
-      
         return IPCFileManager.shared.read(from: Self.filePath,
                                    size: Self.fileSize,
                                    count: count == 0 ? Self.fileSize : count,

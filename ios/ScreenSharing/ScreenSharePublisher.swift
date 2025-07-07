@@ -38,7 +38,7 @@ final class ScreenSharePublisher {
                 print("Height: \(height)")
 
                 // 2️⃣  Export the frame to PNG & offer it via a share‑sheet
-                self.offerToSave(pixelBuffer: buffer)
+                // self.offerToSave(pixelBuffer: buffer)
 
             } catch {
                 // Every early‑exit in the helper now throws a descriptive PBDeserializationError

@@ -13,6 +13,7 @@ class SampleHandler: RPBroadcastSampleHandler {
         // User has requested to start the broadcast.
         // Setup info from the UI extension can be supplied but is optional.
         print("Broadcast started")
+        IPCCurrentVideoFrame.shared.clear()
     }
     
     override func broadcastPaused() {

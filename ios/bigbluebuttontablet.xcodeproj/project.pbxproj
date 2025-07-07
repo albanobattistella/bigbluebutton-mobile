@@ -764,7 +764,7 @@
 				INFOPLIST_FILE = "BigBlueButton Screen Share/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "BigBlueButton Screen Share";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -809,7 +809,7 @@
 				INFOPLIST_FILE = "BigBlueButton Screen Share/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "BigBlueButton Screen Share";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -850,7 +850,7 @@
 				INFOPLIST_FILE = "BigBlueButton Screen ShareSetupUI/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "BigBlueButton Screen ShareSetupUI";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -894,7 +894,7 @@
 				INFOPLIST_FILE = "BigBlueButton Screen ShareSetupUI/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "BigBlueButton Screen ShareSetupUI";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

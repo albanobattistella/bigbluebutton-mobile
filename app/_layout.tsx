@@ -1,12 +1,15 @@
+import '@/i18n';
+import { Picker } from '@react-native-picker/picker';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 import 'react-native-reanimated';
 
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { useColorScheme } from '@/hooks/useColorScheme';
-import { Button } from '@react-navigation/elements';
-import { KeyboardAvoidingView, Platform, StyleSheet, TextInput, View } from 'react-native';
+import { Button, KeyboardAvoidingView, Platform, StyleSheet, TextInput, View } from 'react-native';
 import BroadcastButton from './broadcast/BroadcastButton';
 
 export default function RootLayout() {
@@ -14,6 +17,13 @@ export default function RootLayout() {
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
   });
+  const { t, i18n } = useTranslation();
+  const [selectedLanguage, setSelectedLanguage] = React.useState(i18n.language);
+
+  const handleLanguageChange = (lang: string) => {
+    setSelectedLanguage(lang);
+    i18n.changeLanguage(lang);
+  };
 
   if (!loaded) {
     // Async font loading only occurs in development.
@@ -28,29 +38,44 @@ export default function RootLayout() {
           behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         >
           <ThemedText type="title" style={styles.title}>
-            BigBlueButton
+            {t('home.title')}
           </ThemedText>
           <ThemedText type="subtitle" style={styles.subtitle}>
-            Join meetings with extra features—like screen sharing
+            {t('home.subtitle')}
           </ThemedText>
           <ThemedText style={styles.description}>
-            You can join a meeting directly, or transfer one from another device by scanning a QR code.
+            {t('home.description')}
           </ThemedText>
 
           <View style={styles.card}>
-            <ThemedText style={styles.inputLabel}>Paste your meeting link below:</ThemedText>
+            <ThemedText style={styles.inputLabel}>{t('home.inputLabel')}</ThemedText>
             <TextInput
-              placeholder="e.g. https://your-meeting-url"
+              placeholder={t('home.inputPlaceholder')}
               autoFocus={true}
               style={styles.input}
               placeholderTextColor="#888"
             />
-            <Button onPress={() => {}} color="#0a7ea4">Join Meeting</Button>
+            <Button title={t('home.joinButton')} onPress={() => {}} color="#0a7ea4" />
           </View>
 
           <View style={styles.spacer} />
           <BroadcastButton />
+
+          {/* Language Picker */}
+          {/* Removed from here */}
         </KeyboardAvoidingView>
+        {/* Language Picker moved here for bottom-left alignment */}
+        <View style={styles.languagePickerContainer}>
+          <Picker
+            selectedValue={selectedLanguage}
+            onValueChange={handleLanguageChange}
+            style={{ color: '#000', fontSize: 16 }}
+          >
+            <Picker.Item label="English" value="en" />
+            <Picker.Item label="Deutsch" value="de" />
+            <Picker.Item label="Português (Brasil)" value="pt-BR" />
+          </Picker>
+        </View>
       </ThemedView>
     </ThemeProvider>
   );
@@ -109,5 +134,20 @@ const styles = StyleSheet.create({
   },
   spacer: {
     height: 24,
+  },
+  languagePickerContainer: {
+    position: 'absolute',
+    left: 24,
+    bottom: 24,
+    width: 270,
+    backgroundColor: 'rgba(255,255,255,0.9)',
+    borderRadius: 8,
+    padding: 4,
+    // Optional: add shadow for visibility
+    shadowColor: '#000',
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
+    shadowOffset: { width: 0, height: 2 },
+    elevation: 2,
   },
 });

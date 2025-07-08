@@ -44,3 +44,7 @@ open ios/bigbluebuttontablet.xcworkspace
    npx expo start
    ```
 
+## Internationalization (i18n)
+
+This project uses [react-i18next](https://react.i18next.com/), [i18next](https://www.i18next.com/), and [expo-localization](https://docs.expo.dev/versions/latest/sdk/localization/) for internationalization. Translation files are located in the `i18n/locales` directory. Supported languages include English (en), Brazilian Portuguese (pt-BR), and German (de).
+

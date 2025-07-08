@@ -11,6 +11,7 @@ import { ThemedView } from '@/components/ThemedView';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { Button, KeyboardAvoidingView, Platform, StyleSheet, TextInput, View } from 'react-native';
 import BroadcastButton from './broadcast/BroadcastButton';
+import MeetingWebView from './MeetingWebView';
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -19,6 +20,8 @@ export default function RootLayout() {
   });
   const { t, i18n } = useTranslation();
   const [selectedLanguage, setSelectedLanguage] = React.useState(i18n.language);
+  const [showMeeting, setShowMeeting] = React.useState(false);
+  const [meetingUrl, setMeetingUrl] = React.useState('https://demo-ios.bigbluebutton.org');
 
   const handleLanguageChange = (lang: string) => {
     setSelectedLanguage(lang);
@@ -28,6 +31,15 @@ export default function RootLayout() {
   if (!loaded) {
     // Async font loading only occurs in development.
     return null;
+  }
+
+  if (showMeeting) {
+    return (
+      <MeetingWebView
+        url={meetingUrl}
+        onClose={() => setShowMeeting(false)}
+      />
+    );
   }
 
   return (
@@ -54,8 +66,11 @@ export default function RootLayout() {
               autoFocus={true}
               style={styles.input}
               placeholderTextColor="#888"
+              value={meetingUrl}
+              onChangeText={setMeetingUrl}
+              onSubmitEditing={() => setShowMeeting(true)}
             />
-            <Button title={t('home.joinButton')} onPress={() => {}} color="#0a7ea4" />
+            <Button title={t('home.joinButton')} onPress={() => setShowMeeting(true)} color="#0a7ea4" />
           </View>
 
           <View style={styles.spacer} />

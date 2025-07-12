@@ -2,33 +2,23 @@
 //  PixelBufferSerialization.swift
 //  bigbluebuttontablet
 //
-//  Created by Tiago Daniel Jacobs on 06/07/25.
-//  Last full rewrite: 06/07/25 — added dataSize to header for safer decoding.
+//  Created by Tiago Daniel Jacobs, 2025
 //
 
 import Foundation
 import CoreVideo
 import CoreMedia
-import ImageIO   // for CGImagePropertyOrientation
+import ImageIO // for CGImagePropertyOrientation
 
-// MARK: – Constants
+// MARK: - Constants
 
-/// ASCII prefix used for a quick sanity‑check.
-private let kPrefix = Data("BBB".utf8)          // 3 bytes
+/// ASCII prefix used as a sanity check before decoding pixel buffer payloads.
+private let kPrefix = Data("BBB".utf8) // 3 bytes
 
-// MARK: – Header layout
-//
-// Int64  timestampNS
-// UInt32 width
-// UInt32 height
-// UInt32 pixelFormat (FourCC)
-// UInt32 bytesPerRow
-// UInt32 dataSize (pixel payload length in bytes)
-// UInt32 orientation (CGImagePropertyOrientation.rawValue)
-// UInt32 cookie (random; repeated at tail)
-//
-// Packet = "BBB"  + header + pixel bytes + cookie trailer (4 bytes)
+// MARK: - Header Definition
 
+/// Describes the binary layout of the serialized pixel buffer header.
+/// Total header size: 28 bytes + 8 (timestamp) = 36 bytes.
 public struct PixelHeader {
     static let size = 7 * MemoryLayout<UInt32>.size + MemoryLayout<Int64>.size
 
@@ -41,57 +31,76 @@ public struct PixelHeader {
     var orientation: UInt32
     var cookie:      UInt32
 
-    /// Full memberwise initialiser (needed because we define another init below).
-    init(timestampNs: Int64, width: UInt32, height: UInt32, pixelFormat: UInt32,
-         bytesPerRow: UInt32, dataSize: UInt32, orientation: UInt32, cookie: UInt32) {
-      self.timestampNs = timestampNs
-        self.width       = width
-        self.height      = height
+    /// Full initializer for manual construction.
+    init(
+        timestampNs: Int64,
+        width: UInt32,
+        height: UInt32,
+        pixelFormat: UInt32,
+        bytesPerRow: UInt32,
+        dataSize: UInt32,
+        orientation: UInt32,
+        cookie: UInt32
+    ) {
+        self.timestampNs = timestampNs
+        self.width = width
+        self.height = height
         self.pixelFormat = pixelFormat
         self.bytesPerRow = bytesPerRow
-        self.dataSize    = dataSize
+        self.dataSize = dataSize
         self.orientation = orientation
-        self.cookie      = cookie
+        self.cookie = cookie
     }
 
-    /// Build header from a live pixel‑buffer (single‑plane formats only).
+    /// Initializes header from a live pixel buffer (only supports single-plane).
     init(
-      timestampNs: Int64,
-          buffer: CVPixelBuffer,
-         orientation: CGImagePropertyOrientation,
-         cookie: UInt32 = .random(in: 1 ... 9000)) {
+        timestampNs: Int64,
+        buffer: CVPixelBuffer,
+        orientation: CGImagePropertyOrientation,
+        cookie: UInt32 = .random(in: 1...9000)
+    ) {
         let pixelBytes = UInt32(CVPixelBufferGetDataSize(buffer))
         self.init(
-          timestampNs:  timestampNs,
-                  width:       UInt32(CVPixelBufferGetWidth(buffer)),
-                  height:      UInt32(CVPixelBufferGetHeight(buffer)),
-                  pixelFormat: CVPixelBufferGetPixelFormatType(buffer),
-                  bytesPerRow: UInt32(CVPixelBufferGetBytesPerRow(buffer)),
-                  dataSize:    pixelBytes,
-                  orientation: UInt32(orientation.rawValue),
-                  cookie:      cookie)
+            timestampNs: timestampNs,
+            width: UInt32(CVPixelBufferGetWidth(buffer)),
+            height: UInt32(CVPixelBufferGetHeight(buffer)),
+            pixelFormat: CVPixelBufferGetPixelFormatType(buffer),
+            bytesPerRow: UInt32(CVPixelBufferGetBytesPerRow(buffer)),
+            dataSize: pixelBytes,
+            orientation: UInt32(orientation.rawValue),
+            cookie: cookie
+        )
     }
 
-    /// Native‑endian encode (all current Apple silicon & Intel are little‑endian).
+    /// Encodes the struct into raw Data using native-endian layout.
     func encode() -> Data {
         var tmp = self
         return Data(bytes: &tmp, count: PixelHeader.size)
     }
 
-    /// Alignment‑safe decode.
+    /// Decodes a header from Data. Returns nil if data is insufficient.
     static func decode(from data: Data) -> PixelHeader? {
         guard data.count >= PixelHeader.size else { return nil }
         return data.withUnsafeBytes { rawPtr -> PixelHeader in
-          var hdr = PixelHeader(timestampNs: 0, width: 0, height: 0, pixelFormat: 0,
-                                   bytesPerRow: 0, dataSize: 0, orientation: 0, cookie: 0)
+            var hdr = PixelHeader(
+                timestampNs: 0,
+                width: 0,
+                height: 0,
+                pixelFormat: 0,
+                bytesPerRow: 0,
+                dataSize: 0,
+                orientation: 0,
+                cookie: 0
+            )
             memcpy(&hdr, rawPtr.baseAddress!, PixelHeader.size)
             return hdr
         }
     }
 }
 
-// MARK: – Errors
+// MARK: - Deserialization Errors
 
+/// Errors thrown when decoding a pixel buffer fails due to malformed layout or mismatch.
 enum PBDeserializationError: Error {
     case prefixMissing
     case headerTooShort
@@ -103,58 +112,78 @@ enum PBDeserializationError: Error {
     case baseAddressUnavailable
 }
 
-// MARK: – Serialization
+// MARK: - Serialization
 
-/// Serialises a **single‑plane** pixel‑buffer into Data.
-/// Layout: "BBB" prefix → 28‑byte header → pixel bytes → 4‑byte cookie trailer.
-func serializePixelBufferFull(pixelBuffer: CVPixelBuffer,
-                              orientation: CGImagePropertyOrientation = .up,
-timestampNs: Int64) -> Data? {
+/// Serializes a pixel buffer (single-plane only) to binary format.
+/// Layout:
+/// - 1) 3-byte prefix `"BBB"`
+/// - 2) 36-byte header (PixelHeader)
+/// - 3) Raw pixel bytes
+/// - 4) 4-byte trailer with repeated cookie
+func serializePixelBufferFull(
+    pixelBuffer: CVPixelBuffer,
+    orientation: CGImagePropertyOrientation = .up,
+    timestampNs: Int64
+) -> Data? {
     CVPixelBufferLockBaseAddress(pixelBuffer, .readOnly)
     defer { CVPixelBufferUnlockBaseAddress(pixelBuffer, .readOnly) }
 
     guard let basePtr = CVPixelBufferGetBaseAddress(pixelBuffer) else { return nil }
 
     let pixelBytes = CVPixelBufferGetDataSize(pixelBuffer)
-    let header      = PixelHeader(timestampNs: timestampNs,
-                                  buffer: pixelBuffer, orientation: orientation)
-    let headerData  = header.encode()
+    let header = PixelHeader(
+        timestampNs: timestampNs,
+        buffer: pixelBuffer,
+        orientation: orientation
+    )
+    let headerData = header.encode()
 
     var out = Data(capacity: kPrefix.count + headerData.count + pixelBytes + 4)
-    out.append(kPrefix)                                               // 1) prefix
-    out.append(headerData)                                            // 2) header
-    out.append(basePtr.assumingMemoryBound(to: UInt8.self),           // 3) pixels
-               count: pixelBytes)
+    out.append(kPrefix) // Step 1: Prefix
+    out.append(headerData) // Step 2: Header
+    out.append(basePtr.assumingMemoryBound(to: UInt8.self), count: pixelBytes) // Step 3: Pixel bytes
 
     var trailerLE = header.cookie.littleEndian
-    out.append(Data(bytes: &trailerLE, count: 4))                     // 4) trailer
-    
+    out.append(Data(bytes: &trailerLE, count: 4)) // Step 4: Trailer
+
     return out
 }
 
-// MARK: – Deserialization
+// MARK: - Deserialization
 
-/// Reverses serializePixelBufferFull. Throws if malformed or corrupted.
-func deserializePixelBufferFull(_ data: Data) throws -> (buffer: CVPixelBuffer,
-                                                       orientation: CGImagePropertyOrientation,
-                                                         header: PixelHeader) {
-    // 0. Prefix
-    guard data.starts(with: kPrefix) else { throw PBDeserializationError.prefixMissing }
+/// Reverses `serializePixelBufferFull`, reconstructing the pixel buffer from data.
+/// Ensures integrity using prefix, data length, and cookie checks.
+func deserializePixelBufferFull(
+    _ data: Data
+) throws -> (
+    buffer: CVPixelBuffer,
+    orientation: CGImagePropertyOrientation,
+    header: PixelHeader
+) {
+    // 0. Verify prefix
+    guard data.starts(with: kPrefix) else {
+        throw PBDeserializationError.prefixMissing
+    }
 
     let headerStart = kPrefix.count
-    let headerEnd   = headerStart + PixelHeader.size
-    guard data.count >= headerEnd else { throw PBDeserializationError.headerTooShort }
+    let headerEnd = headerStart + PixelHeader.size
+    guard data.count >= headerEnd else {
+        throw PBDeserializationError.headerTooShort
+    }
 
-    // 1. Header
+    // 1. Decode header
     let headerData = data.subdata(in: headerStart..<headerEnd)
     guard let header = PixelHeader.decode(from: headerData) else {
         throw PBDeserializationError.invalidHeader
     }
 
-    // 2. Trailer (cookie)
+    // 2. Verify trailer (cookie match)
     let trailerOffset = headerEnd + Int(header.dataSize)
-    guard trailerOffset >= headerEnd else {
-        throw PBDeserializationError.sizeMismatch(expected: headerEnd + 4, got: data.count)
+    guard trailerOffset + 4 <= data.count else {
+        throw PBDeserializationError.sizeMismatch(
+            expected: headerEnd + Int(header.dataSize) + 4,
+            got: data.count
+        )
     }
 
     var trailerCookie: UInt32 = 0
@@ -166,24 +195,26 @@ func deserializePixelBufferFull(_ data: Data) throws -> (buffer: CVPixelBuffer,
         throw PBDeserializationError.cookieMismatch(expected: header.cookie, got: trailerCookie)
     }
 
-    // 4. Create pixel‑buffer
+    // 3. Create pixel buffer
     var pbOpt: CVPixelBuffer?
     let attrs: CFDictionary = [
         kCVPixelBufferCGImageCompatibilityKey: true,
         kCVPixelBufferCGBitmapContextCompatibilityKey: true
     ] as CFDictionary
 
-    let status = CVPixelBufferCreate(kCFAllocatorDefault,
-                                     Int(header.width),
-                                     Int(header.height),
-                                     header.pixelFormat,
-                                     attrs,
-                                     &pbOpt)
+    let status = CVPixelBufferCreate(
+        kCFAllocatorDefault,
+        Int(header.width),
+        Int(header.height),
+        header.pixelFormat,
+        attrs,
+        &pbOpt
+    )
     guard status == kCVReturnSuccess, let pixelBuffer = pbOpt else {
         throw PBDeserializationError.pixelBufferCreateFailed
     }
 
-    // 5. Copy pixels
+    // 4. Copy pixel bytes
     CVPixelBufferLockBaseAddress(pixelBuffer, [])
     defer { CVPixelBufferUnlockBaseAddress(pixelBuffer, []) }
 

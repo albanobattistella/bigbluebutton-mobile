@@ -1,5 +1,5 @@
 //
-//  ScreenShareService.swift
+//  ReactNativeScreenShareService.swift
 //
 //  Created by Tiago Daniel Jacobs on 11/03/22.
 //
@@ -8,7 +8,7 @@ import Foundation
 import os
 import AVFAudio
 
-@objc(ScreenShareService)
+@objc(ReactNativeScreenShareService)
 class ScreenShareService: NSObject {
     // Logger (these messages are displayed in the console application)
     private var logger = os.Logger(subsystem: "BigBlueButtonTabletSDK", category: "ScreenShareServiceManager")

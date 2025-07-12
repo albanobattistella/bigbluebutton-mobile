@@ -170,6 +170,7 @@ export default function MeetingWebView({ url, onClose }: MeetingWebViewProps) {
         mediaCapturePermissionGrantType='grant'
         applicationNameForUserAgent='BigBlueButton-Tablet'
         injectedJavaScript={injectedJS}
+        mediaPlaybackRequiresUserAction={false}
       />
       {debugPopupState.visible && (
         <DebugPopup

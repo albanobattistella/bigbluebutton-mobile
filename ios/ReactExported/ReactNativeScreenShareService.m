@@ -1,5 +1,5 @@
 //
-//  ScreenShareService.m
+//  ReactNativeScreenShareService.m
 //
 //  Created by Tiago Daniel Jacobs on 11/03/22.
 //
@@ -7,7 +7,7 @@
 #import <Foundation/Foundation.h>
 
 #import "React/RCTBridgeModule.h"
-@interface RCT_EXTERN_REMAP_MODULE(BBBN_ScreenShareService, ScreenShareService, NSObject)
+@interface RCT_EXTERN_REMAP_MODULE(BBBN_ScreenShareService, ReactNativeScreenShareService, NSObject)
 
 RCT_EXTERN_METHOD(stopScreenShareBroadcastExtension)
 RCT_EXTERN_METHOD(initializeScreenShare)

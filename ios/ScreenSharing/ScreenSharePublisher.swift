@@ -2,87 +2,106 @@
 //  ScreenSharePublisher.swift
 //  bigbluebuttontablet
 //
-//  Created by Tiago Daniel Jacobs on 06/07/25.
-//  Updated: 09/07/25 — detect first dirty frame, log “Broadcast started”.
+//  Created by Tiago Daniel Jacobs, 2025
 //
 
 import Foundation
-import UIKit          // for UIImage & UIActivityViewController
-import CoreImage      // for CIImage & CIContext
+import UIKit          // For UIImage & UIActivityViewController
+import CoreImage      // For CIImage & CIContext
 
-/// Publishes screen-share frames and logs their height. Each time it logs, it also snapshots the frame
-/// to a PNG file in the temporary directory and presents a share-sheet so the user can save/export it.
+/// A screen-sharing component that listens for new video frames,
+/// detects the start of broadcasting, logs metadata, and relays frames
+/// to the broadcasting service.
 final class ScreenSharePublisher {
-    // Worker queue for deserialization + logging (utility QoS is fine)
+    
+    // MARK: - Private State
+
+    /// A dedicated queue for deserialization and processing tasks (low-priority utility queue).
     private static let queue = DispatchQueue(label: "hello.printer", qos: .utility)
+
+    /// Shared timer for periodic frame polling.
     private static var timer: DispatchSourceTimer?
-    /// Tracks whether we’re currently in a “broadcasting” state (i.e. frames are non-clean).
-    /// When this flips from `false → true`, we print **Broadcast started** exactly once.
+
+    /// Tracks if we’re actively broadcasting (i.e., received non-clean frames).
+    /// On transition from `false → true`, "Broadcast started" is logged once.
     private static var broadcastActive = false
 
-    /// Kick-off a 30 Hz timer that processes incoming frames from IPC.
-    static func start() {
-        let t = DispatchSource.makeTimerSource(queue: queue)
-        t.schedule(deadline: .now(),
-                   repeating: .milliseconds(33),   // ≈ 30 Hz
-                   leeway: .milliseconds(1))        // small leeway is fine for logs
-      
-        IPCCurrentVideoFrame.shared.clear()
-        broadcastActive = false                    // reset state on every start
+    // MARK: - Public API
 
+    /// Starts the screen-share monitoring logic with a ~30Hz polling timer.
+    static func start() {
+        // Create the dispatch timer
+        let t = DispatchSource.makeTimerSource(queue: queue)
+        t.schedule(
+            deadline: .now(),
+            repeating: .milliseconds(33),  // ≈ 30Hz
+            leeway: .milliseconds(1)       // Slight flexibility is acceptable
+        )
+        
+        // Reset shared frame memory and internal state
+        IPCCurrentVideoFrame.shared.clear()
+        broadcastActive = false
+
+        // Define timer's work block
         t.setEventHandler {
-            // 1️⃣  Grab the bytes (may be nil if producer hasn’t written yet)
-            guard let data = IPCCurrentVideoFrame.shared.get() else { return }
-            
-            // 2️⃣  Determine cleanliness *before* any early return
+            // 1️⃣ Attempt to fetch the latest frame data
+            guard let data = IPCCurrentVideoFrame.shared.get() else {
+                return  // No frame data yet
+            }
+
+            // 2️⃣ Determine if the buffer is clean (no visual change)
             let isClean = IPCCurrentVideoFrame.shared.isClean()
 
-            // Edge-detection: clean → dirty transition?
+            // 3️⃣ Detect transition into broadcasting
             if !isClean && !broadcastActive {
                 broadcastActive = true
                 print("Broadcast started")
-                ReactNativeEventEmitter.emitter.sendEvent(withName: ReactNativeEventEmitter.EVENT.onBroadcastStarted.rawValue, body: nil)
+                ReactNativeEventEmitter.emitter.sendEvent(
+                    withName: ReactNativeEventEmitter.EVENT.onBroadcastStarted.rawValue,
+                    body: nil
+                )
             } else if isClean && broadcastActive {
-                // We’ve gone back to clean; reset so the next dirty frame can trigger again.
+                // Reset state when returning to clean
                 broadcastActive = false
             }
-            
-            // Short-circuit if the buffer is clean
+
+            // 4️⃣ Skip frame if there's no new content
             guard !isClean else {
-                // print("Skipping frame decode as the shared memory area is clean")
                 return
             }
 
+            // 5️⃣ Attempt to deserialize the pixel buffer and log details
             do {
-                // (buffer, orientation) pattern-matches the tuple being returned
+                // Destructure the returned tuple into buffer, orientation, and metadata
                 let (buffer, orientation, header) = try deserializePixelBufferFull(data)
 
-                // 3️⃣  Log the frame height
+                // Extract and (optionally) log the height for diagnostics
                 let height = CVPixelBufferGetHeight(buffer)
-                // print("Height: \(height)")
-              
-              print("Decoded timestamp: \(header.timestampNs)")
+                // print("Frame height: \(height)")
+                // print("Decoded timestamp: \(header.timestampNs)")
 
-              ScreenBroadcasterService.shared.pushVideoFrame(
-                timeStampNs: header.timestampNs,
-                orientation: orientation,
-                imageBuffer: buffer
-              )
+                // 6️⃣ Pass the frame to the broadcasting service
+                ScreenBroadcasterService.shared.pushVideoFrame(
+                    timeStampNs: header.timestampNs,
+                    orientation: orientation,
+                    imageBuffer: buffer
+                )
 
             } catch {
-                // Every early-exit in the helper now throws a descriptive PBDeserializationError
+                // Handle any deserialization error (with detailed message)
                 print("Failed to deserialize pixel buffer – \(error)")
             }
         }
 
+        // Start the timer and retain a reference to prevent deallocation
         t.resume()
-        timer = t   // keep a strong reference so the timer isn’t cancelled
+        timer = t
     }
 
+    /// Stops the polling and resets the broadcast state.
     static func stop() {
         timer?.cancel()
         timer = nil
-        broadcastActive = false    // be tidy for the next start()
+        broadcastActive = false  // Clean up internal state
     }
-
 }

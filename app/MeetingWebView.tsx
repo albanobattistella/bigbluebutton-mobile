@@ -4,6 +4,7 @@ import { Clipboard, Dimensions, Platform, StyleSheet, Text, TouchableOpacity, Vi
 import { WebView, WebViewMessageEvent } from 'react-native-webview';
 import { AppLogger } from '../components/AppLogger';
 import DebugPopup from '../components/DebugPopup';
+import stopScreenShare from './methods/stopScreenShare';
 import { handleWebviewMessage } from './webview/message-handler';
 
 interface MeetingWebViewProps {
@@ -11,12 +12,17 @@ interface MeetingWebViewProps {
   onClose: () => void;
 }
 
-export default function MeetingWebView({ url, onClose }: MeetingWebViewProps) {
+export default function MeetingWebView({ url, onClose: externalOnClose }: MeetingWebViewProps) {
   const webviewRef = useRef(null);
   const [status, setStatus] = useState<'Loading' | 'Loaded' | 'Error'>('Loading');
   const [webLogs, _setWebLogs] = useState<string[]>([]);
   const [appLogs, _setAppLogs] = useState<string[]>(AppLogger.getInstance().getLogs());
-
+  
+  const onClose = React.useCallback(() => {
+    stopScreenShare(1);
+    externalOnClose();
+  }, [externalOnClose]);
+  
   // Robust popup state management
   const window = Dimensions.get('window');
   const initialPopupState = {

@@ -18,6 +18,10 @@ class ScreenShareService: NSObject {
     // React native exposed method (called when user click the button to share screen)
     @objc func initializeScreenShare() -> Void {
         logger.info("initializeScreenShare")
+      
+        let userDefaults = UserDefaults(suiteName: "group.org.bigbluebutton.tablet")
+        userDefaults?.set(false, forKey: "stopBroadcast")
+        userDefaults?.synchronize()
         
         // Play audio in loop, to keep app active
         self.activeAudioSession(bool: true)
@@ -84,6 +88,7 @@ class ScreenShareService: NSObject {
     }
     
     @objc func stopScreenShareBroadcastExtension() -> Void {
+      logger.info("stopScreenShareBroadcastExtension call arrived on swift")
       let userDefaults = UserDefaults(suiteName: "group.org.bigbluebutton.tablet")
       userDefaults?.set(true, forKey: "stopBroadcast")
       userDefaults?.synchronize()

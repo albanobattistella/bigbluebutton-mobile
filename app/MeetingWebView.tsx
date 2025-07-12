@@ -4,6 +4,7 @@ import { Clipboard, Dimensions, Platform, StyleSheet, Text, TouchableOpacity, Vi
 import { WebView, WebViewMessageEvent } from 'react-native-webview';
 import { AppLogger } from '../components/AppLogger';
 import DebugPopup from '../components/DebugPopup';
+import { handleWebviewMessage } from './webview/message-handler';
 
 interface MeetingWebViewProps {
   url: string;
@@ -79,7 +80,7 @@ export default function MeetingWebView({ url, onClose }: MeetingWebViewProps) {
   `;
 
   // --- WebView Message Handler ---
-  function handleWebviewMessage(event: WebViewMessageEvent) {
+  function onWebviewMessage(event: WebViewMessageEvent) {
     try {
       const data = JSON.parse(event.nativeEvent.data);
       
@@ -91,6 +92,9 @@ export default function MeetingWebView({ url, onClose }: MeetingWebViewProps) {
       } else {
         // Log all messages to app logger
         AppLogger.getInstance().info(`WebView postMessage: ${JSON.stringify(data)}`);
+
+        // Call the actual message handler
+        handleWebviewMessage(1, webviewRef, event);
       }
     } catch (e) {
       // Log non-JSON messages to app logger as well
@@ -159,7 +163,7 @@ export default function MeetingWebView({ url, onClose }: MeetingWebViewProps) {
         onLoadStart={() => setStatusLogged('Loading')}
         onLoadEnd={() => setStatusLogged('Loaded')}
         onError={() => setStatusLogged('Error')}
-        onMessage={handleWebviewMessage}
+        onMessage={onWebviewMessage}
         style={styles.webview}
         contentMode='mobile'
         allowsInlineMediaPlayback={true}

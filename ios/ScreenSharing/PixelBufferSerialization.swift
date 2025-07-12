@@ -18,6 +18,7 @@ private let kPrefix = Data("BBB".utf8)          // 3 bytes
 
 // MARK: – Header layout
 //
+// Int64  timestampNS
 // UInt32 width
 // UInt32 height
 // UInt32 pixelFormat (FourCC)
@@ -26,11 +27,12 @@ private let kPrefix = Data("BBB".utf8)          // 3 bytes
 // UInt32 orientation (CGImagePropertyOrientation.rawValue)
 // UInt32 cookie (random; repeated at tail)
 //
-// Packet = "BBB"  + header (28 bytes) + pixel bytes + cookie trailer (4 bytes)
+// Packet = "BBB"  + header + pixel bytes + cookie trailer (4 bytes)
 
-private struct PixelHeader {
-    static let size = 7 * MemoryLayout<UInt32>.size   // 28 bytes
+public struct PixelHeader {
+    static let size = 7 * MemoryLayout<UInt32>.size + MemoryLayout<Int64>.size
 
+    var timestampNs: Int64
     var width:       UInt32
     var height:      UInt32
     var pixelFormat: UInt32
@@ -40,8 +42,9 @@ private struct PixelHeader {
     var cookie:      UInt32
 
     /// Full memberwise initialiser (needed because we define another init below).
-    init(width: UInt32, height: UInt32, pixelFormat: UInt32,
+    init(timestampNs: Int64, width: UInt32, height: UInt32, pixelFormat: UInt32,
          bytesPerRow: UInt32, dataSize: UInt32, orientation: UInt32, cookie: UInt32) {
+      self.timestampNs = timestampNs
         self.width       = width
         self.height      = height
         self.pixelFormat = pixelFormat
@@ -52,11 +55,15 @@ private struct PixelHeader {
     }
 
     /// Build header from a live pixel‑buffer (single‑plane formats only).
-    init(buffer: CVPixelBuffer,
+    init(
+      timestampNs: Int64,
+          buffer: CVPixelBuffer,
          orientation: CGImagePropertyOrientation,
          cookie: UInt32 = .random(in: 1 ... 9000)) {
         let pixelBytes = UInt32(CVPixelBufferGetDataSize(buffer))
-        self.init(width:       UInt32(CVPixelBufferGetWidth(buffer)),
+        self.init(
+          timestampNs:  timestampNs,
+                  width:       UInt32(CVPixelBufferGetWidth(buffer)),
                   height:      UInt32(CVPixelBufferGetHeight(buffer)),
                   pixelFormat: CVPixelBufferGetPixelFormatType(buffer),
                   bytesPerRow: UInt32(CVPixelBufferGetBytesPerRow(buffer)),
@@ -75,7 +82,7 @@ private struct PixelHeader {
     static func decode(from data: Data) -> PixelHeader? {
         guard data.count >= PixelHeader.size else { return nil }
         return data.withUnsafeBytes { rawPtr -> PixelHeader in
-            var hdr = PixelHeader(width: 0, height: 0, pixelFormat: 0,
+          var hdr = PixelHeader(timestampNs: 0, width: 0, height: 0, pixelFormat: 0,
                                    bytesPerRow: 0, dataSize: 0, orientation: 0, cookie: 0)
             memcpy(&hdr, rawPtr.baseAddress!, PixelHeader.size)
             return hdr
@@ -100,15 +107,17 @@ enum PBDeserializationError: Error {
 
 /// Serialises a **single‑plane** pixel‑buffer into Data.
 /// Layout: "BBB" prefix → 28‑byte header → pixel bytes → 4‑byte cookie trailer.
-func serializePixelBufferFull(_ pixelBuffer: CVPixelBuffer,
-                              orientation: CGImagePropertyOrientation = .up) -> Data? {
+func serializePixelBufferFull(pixelBuffer: CVPixelBuffer,
+                              orientation: CGImagePropertyOrientation = .up,
+timestampNs: Int64) -> Data? {
     CVPixelBufferLockBaseAddress(pixelBuffer, .readOnly)
     defer { CVPixelBufferUnlockBaseAddress(pixelBuffer, .readOnly) }
 
     guard let basePtr = CVPixelBufferGetBaseAddress(pixelBuffer) else { return nil }
 
     let pixelBytes = CVPixelBufferGetDataSize(pixelBuffer)
-    let header      = PixelHeader(buffer: pixelBuffer, orientation: orientation)
+    let header      = PixelHeader(timestampNs: timestampNs,
+                                  buffer: pixelBuffer, orientation: orientation)
     let headerData  = header.encode()
 
     var out = Data(capacity: kPrefix.count + headerData.count + pixelBytes + 4)
@@ -127,7 +136,8 @@ func serializePixelBufferFull(_ pixelBuffer: CVPixelBuffer,
 
 /// Reverses serializePixelBufferFull. Throws if malformed or corrupted.
 func deserializePixelBufferFull(_ data: Data) throws -> (buffer: CVPixelBuffer,
-                                                       orientation: CGImagePropertyOrientation) {
+                                                       orientation: CGImagePropertyOrientation,
+                                                         header: PixelHeader) {
     // 0. Prefix
     guard data.starts(with: kPrefix) else { throw PBDeserializationError.prefixMissing }
 
@@ -185,5 +195,5 @@ func deserializePixelBufferFull(_ data: Data) throws -> (buffer: CVPixelBuffer,
     data.copyBytes(to: destPtr.assumingMemoryBound(to: UInt8.self), from: pixelRange)
 
     let orientation = CGImagePropertyOrientation(rawValue: header.orientation) ?? .up
-    return (pixelBuffer, orientation)
+    return (pixelBuffer, orientation, header)
 }

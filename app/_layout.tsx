@@ -10,7 +10,6 @@ import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { Button, KeyboardAvoidingView, Platform, StyleSheet, TextInput, View } from 'react-native';
-import BroadcastButton from './broadcast/BroadcastButton';
 import MeetingWebView from './MeetingWebView';
 
 export default function RootLayout() {
@@ -74,7 +73,6 @@ export default function RootLayout() {
           </View>
 
           <View style={styles.spacer} />
-          <BroadcastButton />
 
           {/* Language Picker */}
           {/* Removed from here */}

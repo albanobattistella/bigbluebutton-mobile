@@ -108,6 +108,26 @@ public final class IPCFileManager {
         unmapFile(fd: fd, mem: mem, size: size)
         return true
     }
+  
+    // MARK: Clean-state check -----------------------------------------------------
+
+    /// Returns `true` when the first three bytes of the file are all zero.
+    /// - Parameters:
+    ///   - path: Absolute path of the file to inspect.
+    ///   - size: Expected size of the file (bytes).
+    /// - Note: Returns `false` on any parameter/IO failure.
+    public func isClean(path: String, size: Int) -> Bool {
+        guard let (fd, _, mem) = mapFile(path: path, size: size),
+              let mem = mem else { return false }
+
+        // Peek at the first three bytes
+        let b0 = mem.load(fromByteOffset: 0, as: UInt8.self)
+        let b1 = mem.load(fromByteOffset: 1, as: UInt8.self)
+        let b2 = mem.load(fromByteOffset: 2, as: UInt8.self)
+
+        unmapFile(fd: fd, mem: mem, size: size)
+        return b0 == 0 && b1 == 0 && b2 == 0
+    }
 
 }
 
@@ -155,6 +175,13 @@ public final class IPCCurrentVideoFrame {
     @discardableResult
     public func clear() -> Bool {
         return IPCFileManager.shared.clear(
+            path: Self.filePath,
+            size: Self.fileSize
+        )
+    }
+  
+    public func isClean() -> Bool {
+        return IPCFileManager.shared.isClean(
             path: Self.filePath,
             size: Self.fileSize
         )

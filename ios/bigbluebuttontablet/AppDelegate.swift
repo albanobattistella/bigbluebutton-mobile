@@ -5,9 +5,14 @@ import ReactAppDependencyProvider
 @UIApplicationMain
 public class AppDelegate: ExpoAppDelegate {
   var window: UIWindow?
+  private var pickerView: RPSystemBroadcastPickerView?
 
   var reactNativeDelegate: ExpoReactNativeFactoryDelegate?
   var reactNativeFactory: RCTReactNativeFactory?
+  
+  static var shared: AppDelegate {
+    return UIApplication.shared.delegate as! AppDelegate
+  }
 
   public override func application(
     _ application: UIApplication,
@@ -29,6 +34,10 @@ public class AppDelegate: ExpoAppDelegate {
       launchOptions: launchOptions)
 #endif
     ScreenSharePublisher.start()
+    
+    setupScreenShareButton()
+    
+    startHeartbeat()
 
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
@@ -50,6 +59,45 @@ public class AppDelegate: ExpoAppDelegate {
   ) -> Bool {
     let result = RCTLinkingManager.application(application, continue: userActivity, restorationHandler: restorationHandler)
     return super.application(application, continue: userActivity, restorationHandler: restorationHandler) || result
+  }
+  
+  private func setupScreenShareButton() {
+    DispatchQueue.main.async {
+      if self.pickerView == nil {
+        let picker = RPSystemBroadcastPickerView(frame: CGRect(x: -1000, y: -1000, width: 50, height: 50))
+        picker.preferredExtension = "org.bigbluebutton.tablet.BigBlueButton-Screen-Share"
+        picker.showsMicrophoneButton = false
+
+        if let keyWindow = UIApplication.shared
+            .connectedScenes
+            .compactMap({ $0 as? UIWindowScene })
+            .flatMap({ $0.windows })
+            .first(where: { $0.isKeyWindow }) {
+          keyWindow.addSubview(picker)
+          self.pickerView = picker
+        } else {
+          print("Could not find key window")
+          return
+        }
+      }
+    }
+  }
+  
+  public func clickScreenShareButton() {
+    DispatchQueue.main.async {
+      if let button = self.pickerView?.subviews.first(where: { $0 is UIButton }) as? UIButton {
+        button.sendActions(for: .touchUpInside)
+      } else {
+        print("Broadcast picker button not found")
+      }
+    }
+  }
+  
+  func startHeartbeat() {
+      Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+        let defaults = UserDefaults(suiteName: "group.org.bigbluebutton.tablet")!
+        defaults.set(Date().timeIntervalSince1970, forKey: "mainAppHeartBeat")
+      }
   }
 }
 

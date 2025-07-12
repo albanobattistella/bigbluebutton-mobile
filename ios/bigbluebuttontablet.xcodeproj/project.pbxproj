@@ -19,8 +19,6 @@
 		F11BF2B22DDFA51F00CAE24E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F11BF2B12DDFA51F00CAE24E /* UIKit.framework */; };
 		F11BF2B92DDFA51F00CAE24E /* BigBlueButton Screen ShareSetupUI.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = F11BF2AF2DDFA51F00CAE24E /* BigBlueButton Screen ShareSetupUI.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		F11BF2BC2DDFA51F00CAE24E /* BigBlueButton Screen Share.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = F11BF2A42DDFA51F00CAE24E /* BigBlueButton Screen Share.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		F144FB5F2E1A99F4007FF0E1 /* ScreenBroadcastPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = F144FB5E2E1A99F0007FF0E1 /* ScreenBroadcastPicker.m */; };
-		F151C5302E1A92560035DB2E /* ScreenBroadcastPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F151C52D2E1A92560035DB2E /* ScreenBroadcastPicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,8 +71,6 @@
 		F11BF2A52DDFA51F00CAE24E /* ReplayKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReplayKit.framework; path = System/Library/Frameworks/ReplayKit.framework; sourceTree = SDKROOT; };
 		F11BF2AF2DDFA51F00CAE24E /* BigBlueButton Screen ShareSetupUI.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "BigBlueButton Screen ShareSetupUI.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F11BF2B12DDFA51F00CAE24E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		F144FB5E2E1A99F0007FF0E1 /* ScreenBroadcastPicker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScreenBroadcastPicker.m; sourceTree = "<group>"; };
-		F151C52D2E1A92560035DB2E /* ScreenBroadcastPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenBroadcastPicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -141,6 +137,16 @@
 			path = ScreenSharing;
 			sourceTree = "<group>";
 		};
+		F17B68E22E1EEA9A00A84E71 /* ReactExported */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ReactExported;
+			sourceTree = "<group>";
+		};
+		F17B68F32E1EEE4600A84E71 /* Assets */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Assets;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,9 +181,10 @@
 		13B07FAE1A68108700A75B9A /* bigbluebuttontablet */ = {
 			isa = PBXGroup;
 			children = (
+				F17B68F32E1EEE4600A84E71 /* Assets */,
+				F17B68E22E1EEA9A00A84E71 /* ReactExported */,
 				F144FB702E1AB3E4007FF0E1 /* ScreenSharing */,
 				F144FB682E1AAEF6007FF0E1 /* InterProcessCommunication */,
-				F151C52E2E1A92560035DB2E /* Broadcast */,
 				F11748412D0307B40044C1D9 /* AppDelegate.swift */,
 				F11748442D0722820044C1D9 /* bigbluebuttontablet-Bridging-Header.h */,
 				BB2F792B24A3F905000567C9 /* Supporting */,
@@ -268,15 +275,6 @@
 			path = bigbluebuttontablet/Supporting;
 			sourceTree = "<group>";
 		};
-		F151C52E2E1A92560035DB2E /* Broadcast */ = {
-			isa = PBXGroup;
-			children = (
-				F144FB5E2E1A99F0007FF0E1 /* ScreenBroadcastPicker.m */,
-				F151C52D2E1A92560035DB2E /* ScreenBroadcastPicker.swift */,
-			);
-			path = Broadcast;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -303,6 +301,8 @@
 			fileSystemSynchronizedGroups = (
 				F144FB682E1AAEF6007FF0E1 /* InterProcessCommunication */,
 				F144FB702E1AB3E4007FF0E1 /* ScreenSharing */,
+				F17B68E22E1EEA9A00A84E71 /* ReactExported */,
+				F17B68F32E1EEE4600A84E71 /* Assets */,
 			);
 			name = bigbluebuttontablet;
 			productName = bigbluebuttontablet;
@@ -363,6 +363,7 @@
 					};
 					F11BF2A32DDFA51F00CAE24E = {
 						CreatedOnToolsVersion = 16.3;
+						LastSwiftMigration = 1600;
 					};
 					F11BF2AE2DDFA51F00CAE24E = {
 						CreatedOnToolsVersion = 16.3;
@@ -516,9 +517,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F11748422D0307B40044C1D9 /* AppDelegate.swift in Sources */,
-				F151C5302E1A92560035DB2E /* ScreenBroadcastPicker.swift in Sources */,
 				186BB5E4E873DCBB7BEB7ABA /* ExpoModulesProvider.swift in Sources */,
-				F144FB5F2E1A99F4007FF0E1 /* ScreenBroadcastPicker.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -679,10 +678,7 @@
 				LIBRARY_SEARCH_PATHS = "$(SDKROOT)/usr/lib/swift\"$(inherited)\"";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
@@ -737,10 +733,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(SDKROOT)/usr/lib/swift\"$(inherited)\"";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
@@ -755,6 +748,7 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
@@ -786,6 +780,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "BigBlueButton Screen Share/BigBlueButton Screen Share-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -799,6 +794,7 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
@@ -830,6 +826,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "BigBlueButton Screen Share/BigBlueButton Screen Share-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

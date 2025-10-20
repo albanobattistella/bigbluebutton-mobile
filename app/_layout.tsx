@@ -20,7 +20,7 @@ export default function RootLayout() {
   const { t, i18n } = useTranslation();
   const [selectedLanguage, setSelectedLanguage] = React.useState(i18n.language);
   const [showMeeting, setShowMeeting] = React.useState(false);
-  const [meetingUrl, setMeetingUrl] = React.useState('https://demo-ios.bigbluebutton.org');
+  const [meetingUrl, setMeetingUrl] = React.useState('https://demo-ios-bbb30.bbb.imdt.dev/rooms/xy8-0jk-asw-v1f/join');
 
   const handleLanguageChange = (lang: string) => {
     setSelectedLanguage(lang);

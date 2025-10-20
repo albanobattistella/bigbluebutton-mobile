@@ -152,6 +152,41 @@ open class ScreenShareWebRTCClient: NSObject {
     public func getIsRatioDefined() -> Bool {
         return isRatioDefined
     }
+  
+    public func close() {
+        // Always run teardown on main (or signaling) thread to avoid races with callbacks.
+        DispatchQueue.main.async {
+            self.logger.info("Closing WebRTC peer connection (start)")
+
+            // Prevent delegate callbacks to your owner while we tear down
+            self.delegate = nil
+
+            // Disable local track so no further frames are pushed
+            self.localVideoTrack?.isEnabled = false
+
+            // Remove all senders (clean removal of tracks from PC)
+            for sender in self.peerConnection.senders {
+                // removeTrack returns Bool (best-effort)
+                _ = self.peerConnection.removeTrack(sender)
+            }
+
+            // Clear the peer connection delegate so no callbacks into this instance
+            self.peerConnection.delegate = nil
+
+            // Close the peer connection (final)
+            self.peerConnection.close()
+
+            // Release video resources
+            self.videoSource = nil
+            self.videoCapturer = nil
+            self.localVideoTrack = nil
+            self.isRatioDefined = false
+
+            self.logger.info("Closing WebRTC peer connection (done)")
+        }
+    }
+
+
 }
 
 // MARK: - RTCPeerConnectionDelegate

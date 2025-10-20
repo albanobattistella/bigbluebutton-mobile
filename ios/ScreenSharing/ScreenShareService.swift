@@ -47,6 +47,17 @@ open class ScreenBroadcasterService {
         ])
         self.webRTCClient.delegate = self
     }
+  
+    private func reInit() {
+        self.webRTCClient = ScreenShareWebRTCClient(iceServers: [
+            "stun:stun.l.google.com:19302",
+            "stun:stun1.l.google.com:19302",
+            "stun:stun2.l.google.com:19302",
+            "stun:stun3.l.google.com:19302",
+            "stun:stun4.l.google.com:19302"
+        ])
+        self.webRTCClient.delegate = self
+    }
 
     // MARK: - WebRTC Signaling Methods
     
@@ -152,15 +163,20 @@ extension ScreenBroadcasterService: ScreenShareWebRTCClientDelegate {
             logger.info("didChangeConnectionState -> connected")
         case .completed:
             logger.info("didChangeConnectionState -> completed")
-        case .disconnected:
-            logger.info("didChangeConnectionState -> disconnected")
-        case .failed:
-            logger.info("didChangeConnectionState -> failed")
-        case .closed:
-            logger.info("didChangeConnectionState -> closed")
+        case .disconnected, .failed, .closed:
+          logger.info("didChangeConnectionState -> \(state.rawValue) - cleaning up")
+            isConnected = false
+            disconnect()
+            reInit()
         default:
             break
         }
+    }
+    
+    public func disconnect() {
+        logger.info("Cleaning up ScreenBroadcasterService...")
+        isConnected = false
+        webRTCClient.close()
     }
     
     /// Called when ICE gathering state changes.

@@ -1,6 +1,6 @@
 //
 //  ScreenSharePublisher.swift
-//  bigbluebuttontablet
+//  bigbluebuttonmobile
 //
 //  Created by Tiago Daniel Jacobs, 2025
 //

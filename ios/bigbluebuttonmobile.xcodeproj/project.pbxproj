@@ -12,7 +12,7 @@
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
 		AC7E236689334A199FAF7875 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 97EA98AF9A0398C577CD7366 /* PrivacyInfo.xcprivacy */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
-		E84E1AD2162F103B3BCB985B /* libPods-bigbluebuttontablet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A247B58BE8CC9849CAFB431B /* libPods-bigbluebuttontablet.a */; };
+		E84E1AD2162F103B3BCB985B /* libPods-bigbluebuttonmobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A247B58BE8CC9849CAFB431B /* libPods-bigbluebuttonmobile.a */; };
 		F11748422D0307B40044C1D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11748412D0307B40044C1D9 /* AppDelegate.swift */; };
 		F11BF2A62DDFA51F00CAE24E /* ReplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F11BF2A52DDFA51F00CAE24E /* ReplayKit.framework */; };
 		F11BF2B02DDFA51F00CAE24E /* ReplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F11BF2A52DDFA51F00CAE24E /* ReplayKit.framework */; };
@@ -54,19 +54,19 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		11BDA9389C266654DDBA98B8 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-bigbluebuttontablet/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* bigbluebuttontablet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bigbluebuttontablet.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = bigbluebuttontablet/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = bigbluebuttontablet/Info.plist; sourceTree = "<group>"; };
-		97EA98AF9A0398C577CD7366 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = bigbluebuttontablet/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		A247B58BE8CC9849CAFB431B /* libPods-bigbluebuttontablet.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-bigbluebuttontablet.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = bigbluebuttontablet/SplashScreen.storyboard; sourceTree = "<group>"; };
-		AF18109F56853FB7FE088C15 /* Pods-bigbluebuttontablet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bigbluebuttontablet.release.xcconfig"; path = "Target Support Files/Pods-bigbluebuttontablet/Pods-bigbluebuttontablet.release.xcconfig"; sourceTree = "<group>"; };
+		11BDA9389C266654DDBA98B8 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-bigbluebuttonmobile/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* bigbluebuttonmobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bigbluebuttonmobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = bigbluebuttonmobile/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = bigbluebuttonmobile/Info.plist; sourceTree = "<group>"; };
+		97EA98AF9A0398C577CD7366 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = bigbluebuttonmobile/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		A247B58BE8CC9849CAFB431B /* libPods-bigbluebuttonmobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-bigbluebuttonmobile.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = bigbluebuttonmobile/SplashScreen.storyboard; sourceTree = "<group>"; };
+		AF18109F56853FB7FE088C15 /* Pods-bigbluebuttonmobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bigbluebuttonmobile.release.xcconfig"; path = "Target Support Files/Pods-bigbluebuttonmobile/Pods-bigbluebuttonmobile.release.xcconfig"; sourceTree = "<group>"; };
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
-		D97BAF636F3DF743B4C24A75 /* Pods-bigbluebuttontablet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bigbluebuttontablet.debug.xcconfig"; path = "Target Support Files/Pods-bigbluebuttontablet/Pods-bigbluebuttontablet.debug.xcconfig"; sourceTree = "<group>"; };
+		D97BAF636F3DF743B4C24A75 /* Pods-bigbluebuttonmobile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bigbluebuttonmobile.debug.xcconfig"; path = "Target Support Files/Pods-bigbluebuttonmobile/Pods-bigbluebuttonmobile.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		F11748412D0307B40044C1D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = bigbluebuttontablet/AppDelegate.swift; sourceTree = "<group>"; };
-		F11748442D0722820044C1D9 /* bigbluebuttontablet-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "bigbluebuttontablet-Bridging-Header.h"; path = "bigbluebuttontablet/bigbluebuttontablet-Bridging-Header.h"; sourceTree = "<group>"; };
+		F11748412D0307B40044C1D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = bigbluebuttonmobile/AppDelegate.swift; sourceTree = "<group>"; };
+		F11748442D0722820044C1D9 /* bigbluebuttonmobile-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "bigbluebuttonmobile-Bridging-Header.h"; path = "bigbluebuttonmobile/bigbluebuttonmobile-Bridging-Header.h"; sourceTree = "<group>"; };
 		F11BF2A42DDFA51F00CAE24E /* BigBlueButton Screen Share.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "BigBlueButton Screen Share.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F11BF2A52DDFA51F00CAE24E /* ReplayKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReplayKit.framework; path = System/Library/Frameworks/ReplayKit.framework; sourceTree = SDKROOT; };
 		F11BF2AF2DDFA51F00CAE24E /* BigBlueButton Screen ShareSetupUI.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "BigBlueButton Screen ShareSetupUI.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -139,11 +139,15 @@
 		};
 		F17B68E22E1EEA9A00A84E71 /* ReactExported */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+			);
 			path = ReactExported;
 			sourceTree = "<group>";
 		};
 		F17B68F32E1EEE4600A84E71 /* Assets */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+			);
 			path = Assets;
 			sourceTree = "<group>";
 		};
@@ -154,7 +158,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E84E1AD2162F103B3BCB985B /* libPods-bigbluebuttontablet.a in Frameworks */,
+				E84E1AD2162F103B3BCB985B /* libPods-bigbluebuttonmobile.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -178,7 +182,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		13B07FAE1A68108700A75B9A /* bigbluebuttontablet */ = {
+		13B07FAE1A68108700A75B9A /* bigbluebuttonmobile */ = {
 			isa = PBXGroup;
 			children = (
 				F17B68F32E1EEE4600A84E71 /* Assets */,
@@ -186,40 +190,40 @@
 				F144FB702E1AB3E4007FF0E1 /* ScreenSharing */,
 				F144FB682E1AAEF6007FF0E1 /* InterProcessCommunication */,
 				F11748412D0307B40044C1D9 /* AppDelegate.swift */,
-				F11748442D0722820044C1D9 /* bigbluebuttontablet-Bridging-Header.h */,
+				F11748442D0722820044C1D9 /* bigbluebuttonmobile-Bridging-Header.h */,
 				BB2F792B24A3F905000567C9 /* Supporting */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */,
 				97EA98AF9A0398C577CD7366 /* PrivacyInfo.xcprivacy */,
 			);
-			name = bigbluebuttontablet;
+			name = bigbluebuttonmobile;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				A247B58BE8CC9849CAFB431B /* libPods-bigbluebuttontablet.a */,
+				A247B58BE8CC9849CAFB431B /* libPods-bigbluebuttonmobile.a */,
 				F11BF2A52DDFA51F00CAE24E /* ReplayKit.framework */,
 				F11BF2B12DDFA51F00CAE24E /* UIKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		36FF1E36A80A119664EA7224 /* bigbluebuttontablet */ = {
+		36FF1E36A80A119664EA7224 /* bigbluebuttonmobile */ = {
 			isa = PBXGroup;
 			children = (
 				11BDA9389C266654DDBA98B8 /* ExpoModulesProvider.swift */,
 			);
-			name = bigbluebuttontablet;
+			name = bigbluebuttonmobile;
 			sourceTree = "<group>";
 		};
 		6D19BC7C6AEA6ECD0157778D /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				D97BAF636F3DF743B4C24A75 /* Pods-bigbluebuttontablet.debug.xcconfig */,
-				AF18109F56853FB7FE088C15 /* Pods-bigbluebuttontablet.release.xcconfig */,
+				D97BAF636F3DF743B4C24A75 /* Pods-bigbluebuttonmobile.debug.xcconfig */,
+				AF18109F56853FB7FE088C15 /* Pods-bigbluebuttonmobile.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -227,7 +231,7 @@
 		71FCEB2F591227B36D476949 /* ExpoModulesProviders */ = {
 			isa = PBXGroup;
 			children = (
-				36FF1E36A80A119664EA7224 /* bigbluebuttontablet */,
+				36FF1E36A80A119664EA7224 /* bigbluebuttonmobile */,
 			);
 			name = ExpoModulesProviders;
 			sourceTree = "<group>";
@@ -242,7 +246,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				13B07FAE1A68108700A75B9A /* bigbluebuttontablet */,
+				13B07FAE1A68108700A75B9A /* bigbluebuttonmobile */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				F11BF2A72DDFA51F00CAE24E /* BigBlueButton Screen Share */,
 				F11BF2B32DDFA51F00CAE24E /* BigBlueButton Screen ShareSetupUI */,
@@ -259,7 +263,7 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* bigbluebuttontablet.app */,
+				13B07F961A680F5B00A75B9A /* bigbluebuttonmobile.app */,
 				F11BF2A42DDFA51F00CAE24E /* BigBlueButton Screen Share.appex */,
 				F11BF2AF2DDFA51F00CAE24E /* BigBlueButton Screen ShareSetupUI.appex */,
 			);
@@ -272,15 +276,15 @@
 				BB2F792C24A3F905000567C9 /* Expo.plist */,
 			);
 			name = Supporting;
-			path = bigbluebuttontablet/Supporting;
+			path = bigbluebuttonmobile/Supporting;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		13B07F861A680F5B00A75B9A /* bigbluebuttontablet */ = {
+		13B07F861A680F5B00A75B9A /* bigbluebuttonmobile */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "bigbluebuttontablet" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "bigbluebuttonmobile" */;
 			buildPhases = (
 				08A4A3CD28434E44B6B9DE2E /* [CP] Check Pods Manifest.lock */,
 				E6064846B08603D0FB852EF7 /* [Expo] Configure project */,
@@ -304,9 +308,9 @@
 				F17B68E22E1EEA9A00A84E71 /* ReactExported */,
 				F17B68F32E1EEE4600A84E71 /* Assets */,
 			);
-			name = bigbluebuttontablet;
-			productName = bigbluebuttontablet;
-			productReference = 13B07F961A680F5B00A75B9A /* bigbluebuttontablet.app */;
+			name = bigbluebuttonmobile;
+			productName = bigbluebuttonmobile;
+			productReference = 13B07F961A680F5B00A75B9A /* bigbluebuttonmobile.app */;
 			productType = "com.apple.product-type.application";
 		};
 		F11BF2A32DDFA51F00CAE24E /* BigBlueButton Screen Share */ = {
@@ -370,7 +374,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "bigbluebuttontablet" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "bigbluebuttonmobile" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -383,7 +387,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* bigbluebuttontablet */,
+				13B07F861A680F5B00A75B9A /* bigbluebuttonmobile */,
 				F11BF2A32DDFA51F00CAE24E /* BigBlueButton Screen Share */,
 				F11BF2AE2DDFA51F00CAE24E /* BigBlueButton Screen ShareSetupUI */,
 			);
@@ -449,7 +453,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-bigbluebuttontablet-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-bigbluebuttonmobile-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -462,15 +466,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-bigbluebuttontablet/Pods-bigbluebuttontablet-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-bigbluebuttonmobile/Pods-bigbluebuttonmobile-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-bigbluebuttontablet/Pods-bigbluebuttontablet-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-bigbluebuttonmobile/Pods-bigbluebuttonmobile-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-bigbluebuttontablet/Pods-bigbluebuttontablet-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-bigbluebuttonmobile/Pods-bigbluebuttonmobile-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		A2FB5303EFB9439B8A2CCDD9 /* [CP] Embed Pods Frameworks */ = {
@@ -479,15 +483,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-bigbluebuttontablet/Pods-bigbluebuttontablet-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-bigbluebuttonmobile/Pods-bigbluebuttonmobile-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-bigbluebuttontablet/Pods-bigbluebuttontablet-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-bigbluebuttonmobile/Pods-bigbluebuttonmobile-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-bigbluebuttontablet/Pods-bigbluebuttontablet-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-bigbluebuttonmobile/Pods-bigbluebuttonmobile-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E6064846B08603D0FB852EF7 /* [Expo] Configure project */ = {
@@ -507,7 +511,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-bigbluebuttontablet/expo-configure-project.sh\"\n";
+			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-bigbluebuttonmobile/expo-configure-project.sh\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -553,11 +557,11 @@
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D97BAF636F3DF743B4C24A75 /* Pods-bigbluebuttontablet.debug.xcconfig */;
+			baseConfigurationReference = D97BAF636F3DF743B4C24A75 /* Pods-bigbluebuttonmobile.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = bigbluebuttontablet/bigbluebuttontablet.entitlements;
+				CODE_SIGN_ENTITLEMENTS = bigbluebuttonmobile/bigbluebuttonmobile.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = N69T9W23TC;
 				ENABLE_BITCODE = NO;
@@ -565,8 +569,8 @@
 					"$(inherited)",
 					"FB_SONARKIT_ENABLED=1",
 				);
-				INFOPLIST_FILE = bigbluebuttontablet/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "BigBlueButton Tablet";
+				INFOPLIST_FILE = bigbluebuttonmobile/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = BigBlueButton;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -581,8 +585,8 @@
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = org.bigbluebutton.tablet;
-				PRODUCT_NAME = bigbluebuttontablet;
-				SWIFT_OBJC_BRIDGING_HEADER = "bigbluebuttontablet/bigbluebuttontablet-Bridging-Header.h";
+				PRODUCT_NAME = bigbluebuttonmobile;
+				SWIFT_OBJC_BRIDGING_HEADER = "bigbluebuttonmobile/bigbluebuttonmobile-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -592,15 +596,15 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AF18109F56853FB7FE088C15 /* Pods-bigbluebuttontablet.release.xcconfig */;
+			baseConfigurationReference = AF18109F56853FB7FE088C15 /* Pods-bigbluebuttonmobile.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = bigbluebuttontablet/bigbluebuttontablet.entitlements;
+				CODE_SIGN_ENTITLEMENTS = bigbluebuttonmobile/bigbluebuttonmobile.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = N69T9W23TC;
-				INFOPLIST_FILE = bigbluebuttontablet/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "BigBlueButton Tablet";
+				INFOPLIST_FILE = bigbluebuttonmobile/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = BigBlueButton;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -615,8 +619,8 @@
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = org.bigbluebutton.tablet;
-				PRODUCT_NAME = bigbluebuttontablet;
-				SWIFT_OBJC_BRIDGING_HEADER = "bigbluebuttontablet/bigbluebuttontablet-Bridging-Header.h";
+				PRODUCT_NAME = bigbluebuttonmobile;
+				SWIFT_OBJC_BRIDGING_HEADER = "bigbluebuttonmobile/bigbluebuttonmobile-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -678,7 +682,10 @@
 				LIBRARY_SEARCH_PATHS = "$(SDKROOT)/usr/lib/swift\"$(inherited)\"";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = "$(inherited)  ";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					" ",
+				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
@@ -733,7 +740,10 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(SDKROOT)/usr/lib/swift\"$(inherited)\"";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "$(inherited)  ";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					" ",
+				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
@@ -920,7 +930,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "bigbluebuttontablet" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "bigbluebuttonmobile" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -929,7 +939,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "bigbluebuttontablet" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "bigbluebuttonmobile" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,

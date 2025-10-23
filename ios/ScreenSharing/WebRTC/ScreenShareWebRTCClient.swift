@@ -22,8 +22,8 @@ public protocol ScreenShareWebRTCClientDelegate: AnyObject {
 
 /// Manages WebRTC peer connection, video track setup, and signaling for screen share publishing.
 open class ScreenShareWebRTCClient: NSObject {
-    
-    private var logger = os.Logger(subsystem: "BigBlueButtonTabletSDK", category: "WebRTCClient")
+
+    private var logger = os.Logger(subsystem: "BigBlueButtonMobileSDK", category: "WebRTCClient")
 
     /// Shared PeerConnectionFactory used to create tracks and peer connections.
     private static let factory: RTCPeerConnectionFactory = {

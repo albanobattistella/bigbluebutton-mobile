@@ -11,7 +11,7 @@ import AVFAudio
 @objc(ReactNativeScreenShareService)
 class ScreenShareService: NSObject {
     // Logger (these messages are displayed in the console application)
-    private var logger = os.Logger(subsystem: "BigBlueButtonTabletSDK", category: "ScreenShareServiceManager")
+    private var logger = os.Logger(subsystem: "BigBlueButtonMobileSDK", category: "ScreenShareServiceManager")
     var audioSession = AVAudioSession.sharedInstance()
     var player: AVAudioPlayer!
     

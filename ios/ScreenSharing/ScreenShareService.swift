@@ -20,7 +20,7 @@ open class ScreenBroadcasterService {
     // MARK: - Properties
 
     /// Logger for internal diagnostics.
-    private var logger = os.Logger(subsystem: "BigBlueButtonTabletSDK", category: "ScreenBroadcasterService")
+    private var logger = os.Logger(subsystem: "BigBlueButtonMobileSDK", category: "ScreenBroadcasterService")
     
     /// The internal WebRTC client for media negotiation and frame pushing.
     private var webRTCClient: ScreenShareWebRTCClient

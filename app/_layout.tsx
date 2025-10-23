@@ -21,7 +21,7 @@ export default function RootLayout() {
   const { t, i18n } = useTranslation();
   const [selectedLanguage, setSelectedLanguage] = React.useState(i18n.language);
   const [showMeeting, setShowMeeting] = React.useState(false);
-  const [meetingUrl, setMeetingUrl] = React.useState('https://demo-ios-bbb30.bbb.imdt.dev/rooms/xy8-0jk-asw-v1f/join');
+  const [meetingUrl, setMeetingUrl] = React.useState('https://demo-ios.bigbluebutton.org');
 
   const handleLanguageChange = (lang: string) => {
     setSelectedLanguage(lang);
@@ -63,14 +63,16 @@ export default function RootLayout() {
       const meetingUrlParam = Array.isArray(parsed.queryParams.url)
         ? parsed.queryParams.url[0]
         : parsed.queryParams.url;
-      setMeetingUrl(meetingUrlParam);
+      setMeetingUrl(decodeURIComponent(meetingUrlParam));
       setShowMeeting(true);
     }
     // Main format: bigbluebutton-tablet://room+name/server/path
     else if (parsed.hostname && parsed.path) {
       // hostname is "room+name", path is "/server/path"
       // We need to extract server from the path and reconstruct as https://server/path
-      const pathParts = parsed.path.split('/').filter(part => part.length > 0);
+      // Decode the path first since it may contain URL-encoded characters
+      const decodedPath = decodeURIComponent(parsed.path);
+      const pathParts = decodedPath.split('/').filter(part => part.length > 0);
 
       if (pathParts.length > 0) {
         // First part after room name is the server
@@ -84,14 +86,14 @@ export default function RootLayout() {
     }
     // Check if URL is in the path directly (backward compatibility)
     else if (parsed.path && parsed.path.startsWith('http')) {
-      setMeetingUrl(parsed.path);
+      setMeetingUrl(decodeURIComponent(parsed.path));
       setShowMeeting(true);
     }
     // Check if hostname contains the URL (backward compatibility)
     else if (parsed.hostname && parsed.hostname.includes('http')) {
       // Reconstruct the URL from hostname and path
       const fullUrl = parsed.hostname + (parsed.path || '');
-      setMeetingUrl(fullUrl);
+      setMeetingUrl(decodeURIComponent(fullUrl));
       setShowMeeting(true);
     }
   };

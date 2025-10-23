@@ -50,6 +50,14 @@ export default function RootLayout() {
     };
   }, []);
 
+  const cleanupUrl = (url: string): string => {
+    // Remove duplicate https:// or http:// patterns (with or without slashes)
+    // e.g., "https://https://example.com" -> "https://example.com"
+    // e.g., "https://https:/example.com" -> "https://example.com"
+    // e.g., "https://http:example.com" -> "https://example.com"
+    return url.replace(/^(https?:\/\/)(?:https?:\/?\/?)+/i, '$1');
+  };
+
   const handleDeepLink = (url: string) => {
     // Parse the deep link URL
     // Expected format: bigbluebutton-tablet://room+name/server/path
@@ -63,7 +71,8 @@ export default function RootLayout() {
       const meetingUrlParam = Array.isArray(parsed.queryParams.url)
         ? parsed.queryParams.url[0]
         : parsed.queryParams.url;
-      setMeetingUrl(decodeURIComponent(meetingUrlParam));
+      const decodedUrl = decodeURIComponent(meetingUrlParam);
+      setMeetingUrl(cleanupUrl(decodedUrl));
       setShowMeeting(true);
     }
     // Main format: bigbluebutton-tablet://room+name/server/path
@@ -80,20 +89,22 @@ export default function RootLayout() {
         // Remaining parts form the path
         const remainingPath = pathParts.slice(1).join('/');
         const meetingUrl = `https://${server}/${remainingPath}`;
-        setMeetingUrl(meetingUrl);
+        setMeetingUrl(cleanupUrl(meetingUrl));
         setShowMeeting(true);
       }
     }
     // Check if URL is in the path directly (backward compatibility)
     else if (parsed.path && parsed.path.startsWith('http')) {
-      setMeetingUrl(decodeURIComponent(parsed.path));
+      const decodedUrl = decodeURIComponent(parsed.path);
+      setMeetingUrl(cleanupUrl(decodedUrl));
       setShowMeeting(true);
     }
     // Check if hostname contains the URL (backward compatibility)
     else if (parsed.hostname && parsed.hostname.includes('http')) {
       // Reconstruct the URL from hostname and path
       const fullUrl = parsed.hostname + (parsed.path || '');
-      setMeetingUrl(decodeURIComponent(fullUrl));
+      const decodedUrl = decodeURIComponent(fullUrl);
+      setMeetingUrl(cleanupUrl(decodedUrl));
       setShowMeeting(true);
     }
   };

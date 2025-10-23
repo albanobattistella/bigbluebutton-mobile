@@ -5,6 +5,7 @@ import { useFonts } from 'expo-font';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import 'react-native-reanimated';
+import * as Linking from 'expo-linking';
 
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
@@ -25,6 +26,74 @@ export default function RootLayout() {
   const handleLanguageChange = (lang: string) => {
     setSelectedLanguage(lang);
     i18n.changeLanguage(lang);
+  };
+
+  // Handle deep links
+  React.useEffect(() => {
+    // Handle initial URL when app is opened from a deep link
+    const handleInitialURL = async () => {
+      const initialUrl = await Linking.getInitialURL();
+      if (initialUrl) {
+        handleDeepLink(initialUrl);
+      }
+    };
+
+    // Handle deep links when app is already running
+    const subscription = Linking.addEventListener('url', (event) => {
+      handleDeepLink(event.url);
+    });
+
+    handleInitialURL();
+
+    return () => {
+      subscription.remove();
+    };
+  }, []);
+
+  const handleDeepLink = (url: string) => {
+    // Parse the deep link URL
+    // Expected format: bigbluebutton-tablet://room+name/server/path
+    // Example: bigbluebutton-tablet://room+name/demo-ios-bbb30.bbb.imdt.dev/rooms/xy8-0jk-asw-v1f/join
+    // The room name is legacy and not used, we extract server/path
+
+    const parsed = Linking.parse(url);
+
+    // Check if URL is in query parameter (backward compatibility)
+    if (parsed.queryParams?.url) {
+      const meetingUrlParam = Array.isArray(parsed.queryParams.url)
+        ? parsed.queryParams.url[0]
+        : parsed.queryParams.url;
+      setMeetingUrl(meetingUrlParam);
+      setShowMeeting(true);
+    }
+    // Main format: bigbluebutton-tablet://room+name/server/path
+    else if (parsed.hostname && parsed.path) {
+      // hostname is "room+name", path is "/server/path"
+      // We need to extract server from the path and reconstruct as https://server/path
+      const pathParts = parsed.path.split('/').filter(part => part.length > 0);
+
+      if (pathParts.length > 0) {
+        // First part after room name is the server
+        const server = pathParts[0];
+        // Remaining parts form the path
+        const remainingPath = pathParts.slice(1).join('/');
+        const meetingUrl = `https://${server}/${remainingPath}`;
+        setMeetingUrl(meetingUrl);
+        setShowMeeting(true);
+      }
+    }
+    // Check if URL is in the path directly (backward compatibility)
+    else if (parsed.path && parsed.path.startsWith('http')) {
+      setMeetingUrl(parsed.path);
+      setShowMeeting(true);
+    }
+    // Check if hostname contains the URL (backward compatibility)
+    else if (parsed.hostname && parsed.hostname.includes('http')) {
+      // Reconstruct the URL from hostname and path
+      const fullUrl = parsed.hostname + (parsed.path || '');
+      setMeetingUrl(fullUrl);
+      setShowMeeting(true);
+    }
   };
 
   if (!loaded) {

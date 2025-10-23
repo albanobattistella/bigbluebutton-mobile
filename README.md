@@ -1,9 +1,7 @@
-# BigBlueButton Tablet
+# BigBlueButton Mobile App
 
-BigBlueButton app for tablets. It allows you to share your screen in a BigBlueButton room, and also provides improved background audio.
+BigBlueButton app for mobile devices.
 
-PS: This runs on mobile too, but it's mainly targeted for tablets, as it requires good CPU due to usage of a webview for rendering BigBlueButton.
+In IOS, it allows you to share your screen (not possible in Safari).
 
-More details in https://github.com/bigbluebutton/bigbluebutton-tablet-sdk
-
-- iOS version available in [App Store](https://apps.apple.com/us/app/bigbluebutton-tablet/id1641156756)
+[App Store](https://apps.apple.com/us/app/bigbluebutton-tablet/id1641156756)
